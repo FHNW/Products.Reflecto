@@ -9,3 +9,5 @@
 /parts
 /var
 *.egg-info
+*.pyc
+*.pyo
