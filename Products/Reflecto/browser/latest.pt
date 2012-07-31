@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain='reflecto'
+      >
+
+  <head></head>
+  <body>
+
+    <div metal:fill-slot="main">
+    
+      <h1 class="documentFirstHeading">Zuletzt ge&auml;nderte PMS-Dokumente</h1>
+
+      <div style="margin-bottom:1em;"><a href="." i18n:translate="Ubersichtsseite">Übersichtsseite</a></div>
+      
+      <table class="listing">
+        <tr>
+          <td><strong i18n:translate="Datum">Datum</strong></td>
+          <td><strong i18n:translate="Verknupfung">Verknüpfung</strong></td>
+          <td><strong i18n:translate="Beschreibung">Beschreibung</strong></td>
+        </tr>
+        <tr tal:repeat="entry view/entries">
+          <td tal:content="python:entry['date'].strftime('%d.%m.%Y')"></td>
+          <td><a href="#" tal:attributes="href entry/link"
+                          tal:content="entry/document"></a></td>
+          <td tal:content="entry/description"></td>
+        </tr>
+      </table>
+      
+    </div>
+
+  </body>
+</html>
