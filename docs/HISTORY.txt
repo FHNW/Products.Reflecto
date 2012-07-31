@@ -1,9 +1,10 @@
 Changelog
 =========
 
-3.0.6 - unreleased
-------------------
+3.0.5-FHNW1 (unreleased)
+------------------------
 
+- changes see README.FHNW.txt file
 
 3.0.5 - July 11, 2013
 ---------------------

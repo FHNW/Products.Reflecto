@@ -59,6 +59,11 @@ from Products.Reflecto.patches import checkValidId
 
 log = logging.getLogger(__name__)
 
+# + patch
+# override checkValidId from OFS.ObjectManager, since we want to
+# support '%'-chars for quoted umlauts
+from Products.Reflecto.patches import checkValidId
+# - patch
 
 def _getViewFor(context):
         return context.reflector_view
