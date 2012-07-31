@@ -25,6 +25,7 @@
       permission="Reflecto.AddFilesystemObject"
       />
       
+<!-- doesn't work with umlaut patch :-(
   <browser:page
       for="..interfaces.IReflectoFile"
       name="download"
@@ -38,12 +39,23 @@
       class=".download.DirectoryDownloadView"
       permission="zope2.View"
       />
-
+-->
   <browser:page
-      for="..interfaces.IReflectoProxy"
+      for="..interfaces.IReflector"
       name="index"
       class=".index.IndexView"
       permission="Reflecto.AddFilesystemObject"
       allowed_interface="..interfaces.IIndexView"
       />
+      
+
+  <!-- patch -->
+  <browser:page
+      for="..interfaces.IReflector"
+      name="latest.html"
+      permission="zope2.AccessContentsInformation"
+      class=".latest.LatestChangesView"
+      template="latest.pt"
+      />
+
 </configure>

@@ -18,7 +18,9 @@ from OFS.CopySupport import copy_re
 from OFS.event import ObjectWillBeMovedEvent, ObjectWillBeRemovedEvent
 from OFS.event import ObjectClonedEvent
 from OFS.Moniker import Moniker, loadMoniker
-from OFS.ObjectManager import checkValidId, BadRequestException
+#patch
+#from OFS.ObjectManager import checkValidId
+from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest, Unauthorized
 from ZODB.POSException import ConflictError
 from webdav.Collection import Collection
@@ -46,6 +48,12 @@ from Products.Reflecto.utils import addMarkerInterface
 
 from ZPublisher import xmlrpc
 from webdav.NullResource import NullResource
+
+# + patch
+# override checkValidId from OFS.ObjectManager, since we want to
+# support '%'-chars for quoted umlauts
+from Products.Reflecto.patches import checkValidId
+# - patch
 
 def _getViewFor(context):
         return context.reflector_view
@@ -111,7 +119,13 @@ class ReflectoDirectoryBase:
             raise StopIteration
         
         try:
-            for name in os.listdir(path):
+            # + patch
+            #for name in os.listdir(path):
+            files = list(os.listdir(path))
+            files.sort()
+
+            for name in files:
+            # - patch
                 if not self.acceptableFilename(name):
                     continue
                 if not self.acceptableFile(os.path.join(path, name)):
@@ -176,7 +190,6 @@ class ReflectoDirectoryBase:
         # 'spec'
         assert spec is None, 'spec argument unsupported'
         return self.iteritems()
-
 
 ########################################################################
 # WebDAV implementation

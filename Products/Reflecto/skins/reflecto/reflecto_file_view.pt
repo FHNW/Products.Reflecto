@@ -35,15 +35,18 @@
                 tal:define="here_url context/@@plone_context_state/object_url">
                 <a href=""
                    tal:attributes="href here_url">
-                    <tal:block i18n:translate="label_click_to_get_file">
+                    <tal:block i18n:domain="reflecto"
+                               i18n:translate="label_click_to_get_file">
                     Click here to view the file
                     </tal:block>
-                </a> or
+                <tal:comment replace="nothing">
+                <!-- # + patch </a> or
                 <a href=""
                    tal:attributes="href string:${here_url}/@@download">
                     <tal:block i18n:translate="label_click_to_get_file">
                     click here to download the file
-                    </tal:block>
+                    </tal:block> # - patch -->
+                </tal:comment>
                 </a>
             </span>
         </p>

@@ -25,6 +25,16 @@ from stat import ST_MTIME
 import os
 import os.path
 import tempfile
+# + patch
+import logging
+from urllib import quote
+from Products.ATContentTypes.config import ICONMAP
+from Products.MimetypesRegistry.common import MimeTypeException
+from Products.Reflecto.patches import WITH_LNK_PARSER
+if WITH_LNK_PARSER:
+    from Products.Reflecto.patches import lnkparse
+LOG = logging.getLogger('Reflecto')
+# - patch
 
 
 class ReflectoFile(BaseMove, Resource, BaseProxy, DynamicType):
@@ -91,14 +101,29 @@ class ReflectoFile(BaseMove, Resource, BaseProxy, DynamicType):
         """Download the file"""
         self.setCacheHeaders()
         RESPONSE=self.REQUEST['RESPONSE']
+        status = ""
+        if WITH_LNK_PARSER:
+            # get the target file into a MS-Link
+            status, lnkpath = lnkparse(self.getRelativePath(), self.getFilesystemPath())
+            if  status == 'OK':
+                RESPONSE.redirect('%s/%s' % (self.REQUEST.URL2, lnkpath))
+                return 
+            elif status == 'ERROR_RELPATH':
+                # File without a valid target file 
+                RESPONSE.redirect(self.absolute_url() + '/symbolic_link_notfound')
+                return
+            elif status == 'ERROR_OUTREFLECTPATH':
+                # File without a valid target file 
+                RESPONSE.redirect(self.absolute_url() + '/targetfile_out_basepath')
+                return
+        # - Return file content
         iterator = filestream_iterator(self.getFilesystemPath(), 'rb')
-        
+
         RESPONSE.setHeader('Last-Modified', rfc1123_date(self.getStatus()[ST_MTIME]))
         RESPONSE.setHeader('Content-Type', self.Format())
-        RESPONSE.setHeader('Content-Length', len(iterator))
-        
-        return iterator
+        RESPONSE.setHeader('Content-Length', len(iterator))        
 
+        return iterator
  
     security.declareProtected(View, "index_html")
     def index_html(self):
@@ -106,9 +131,9 @@ class ReflectoFile(BaseMove, Resource, BaseProxy, DynamicType):
         return self()
 
 
+    security.declareProtected(View, "Format")
     def Format(self):
         extension=os.path.splitext(self.getId().lower())[1]
-        type=None
 
         mtr=getToolByName(self, "mimetypes_registry", None)
         if mtr is not None:
@@ -173,7 +198,46 @@ class ReflectoFile(BaseMove, Resource, BaseProxy, DynamicType):
             
         self.indexObject()
 
+# + patch (more less taken from ATContentTypes.content.file)
+    security.declarePublic('getIcon')
+    def getIcon(self, relative_to_portal=0):
+        """Calculate the icon using the mime type of the file
+        """
+        field = self.getFileContent()
 
+        contenttype = self.Format()
+        contenttype_major = contenttype and contenttype.split('/')[0] or ''
+
+        if not field or not self.get_size():
+            # field is empty
+            return super(ReflectoFile, self).getIcon(relative_to_portal)
+
+        mtr = getToolByName(self, 'mimetypes_registry', None)
+
+        if ICONMAP.has_key(contenttype):
+            icon = quote(ICONMAP[contenttype])
+        elif ICONMAP.has_key(contenttype_major):
+            icon = quote(ICONMAP[contenttype_major])
+        else:
+            mimetypeitem = None
+            try:
+                mimetypeitem = mtr.lookup(contenttype)
+            except MimeTypeException, msg:
+                LOG.error('MimeTypeException for %s. Error is: %s' % (self.absolute_url(), str(msg)))
+            if not mimetypeitem:
+                return super(ReflectoFile, self).getIcon(relative_to_portal)
+            icon = mimetypeitem[0].icon_path
+
+        if relative_to_portal:
+            return icon
+        else:
+            utool = getToolByName(self, 'portal_url')
+            # Relative to REQUEST['BASEPATH1']
+            res = utool(relative=1) + '/' + icon
+            while res[:1] == '/':
+                res = res[1:]
+            return res
+# - patch
 
 InitializeClass(ReflectoFile)
 

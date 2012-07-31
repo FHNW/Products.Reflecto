@@ -1,3 +1,4 @@
+import zope.interface
 from ZPublisher.Iterators import IStreamIterator
 from Products.Reflecto.content.reflector import Reflector
 from Products.Reflecto.tests.utils import samplesPath

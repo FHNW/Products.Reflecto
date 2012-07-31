@@ -22,6 +22,10 @@ from Products.Reflecto.content.file import ReflectoFile
 from Products.Reflecto.content.directory import ReflectoDirectory
 from Products.Reflecto.tests.utils import MockReflector
 
+#+ patch tom, 3.6.2008
+from zope.component import queryUtility
+#- patch
+
 class IndexTests(unittest.TestCase):
     def setUp(self):
         self.reflector = MockReflector()
@@ -89,13 +93,14 @@ class TextIndexNG3Tests(unittest.TestCase):
         self.assertEqual(content.getFieldData("Title")[0]["content"],
                          "reflecto.jpg")
 
-
     def testBinaryContent(self):
         proxy=ReflectoFile(("reflecto.jpg",)).__of__(self.reflector)
-        indexer=IIndexableContent(proxy)
-        content=indexer.indexableContent(["SearchableText"])
-        self.assertEqual(content.getFields(), ["SearchableText"])
-
+        #+ patch tom, 3.6.2008
+        if queryUtility(proxy.Format()) is not None:
+        #- patch
+            indexer=IIndexableContent(proxy)
+            content=indexer.indexableContent(["SearchableText"])
+            self.assertEqual(content.getFields(), ["SearchableText"])
 
     def testTextContent(self):
         proxy=ReflectoFile(("reflecto.txt",)).__of__(self.reflector)
@@ -107,8 +112,6 @@ class TextIndexNG3Tests(unittest.TestCase):
         self.failUnless(isinstance(data[0]["content"], unicode))
         self.failUnless(u"reflecto.txt" in data[0]["content"])
         self.failUnless(u"superhero" in data[1]["content"])
-
-
 
 def test_suite():
     suite=unittest.TestSuite()

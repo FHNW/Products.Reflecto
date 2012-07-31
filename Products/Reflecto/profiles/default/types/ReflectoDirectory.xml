@@ -21,7 +21,7 @@
   <permission value="View"/>
  </action>
  <action title="Reindex" action_id="reindex" category="object"
-     condition_expr="" url_expr="string:${folder_url}/@@index" visible="True">
+     condition_expr="" url_expr="string:${folder_url}/@@index" visible="False">
   <permission value="Add Filesystem Object"/>
  </action>
  <action title="Folder Listing" action_id="folderlisting" category="folder"
