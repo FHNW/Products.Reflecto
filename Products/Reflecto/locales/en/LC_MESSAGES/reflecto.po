@@ -1,0 +1,65 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-05-20 07:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: Reflecto/browser/addfile.py:25
+msgid "A file with the same filename already exists."
+msgstr ""
+
+#: Reflecto/browser/adddirectory.py:28
+msgid "Add a new directory"
+msgstr ""
+
+#: Reflecto/browser/addfile.py:29
+msgid "Add a new file"
+msgstr ""
+
+#: Reflecto/browser/adddirectory.py:41
+msgid "Add directory"
+msgstr ""
+
+#: Reflecto/browser/addfile.py:50
+msgid "Add file"
+msgstr ""
+
+#: Reflecto/browser/adddirectory.py:19
+msgid "Directory name to add"
+msgstr ""
+
+#: Reflecto/browser/addfile.py:20
+msgid "File to add"
+msgstr ""
+
+#: Reflecto/browser/addfile.py:70
+msgid "File uploaded and indexed"
+msgstr ""
+
+#: Reflecto/browser/adddirectory.py:51
+msgid "New directory created"
+msgstr ""
+
+#: Reflecto/browser/index.py:51
+msgid "Reflector (re)indexed"
+msgstr ""
+
+#: Reflecto/browser/adddirectory.py:24
+msgid "The directory name is already in use."
+msgstr ""
+
+#. Default: "Click here to view the file"
+#: Reflecto/skins/reflecto/reflecto_file_view.pt:36
+msgid "label_click_to_get_file"
+msgstr ""
+
