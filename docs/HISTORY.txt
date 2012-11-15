@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.5.1-FHNW1 (unreleased)
-----------------------
+2.5.1-FHNW1 (2012-11-15)
+------------------------
 
 - changes see README.FHNW.txt file
 
