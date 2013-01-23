@@ -39,11 +39,11 @@ class IndexTests(unittest.TestCase):
 
     def testBinarySearchableText(self):
         proxy=ReflectoFile(("reflecto.jpg",)).__of__(self.reflector)
-        self.assertEqual(proxy.SearchableText(), "reflecto.jpg")
+        self.assertEqual(proxy.SearchableText(), "reflecto.jpg reflecto")
 
     def testDirectorySearchableText(self):
         proxy = ReflectoDirectory(('subdir',)).__of__(self.reflector)
-        self.assertEqual(proxy.SearchableText(), 'subdir')
+        self.assertEqual(proxy.SearchableText(), 'subdir subdir')
 
 
 class Converter(object):
