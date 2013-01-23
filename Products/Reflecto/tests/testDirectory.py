@@ -92,6 +92,7 @@ class DirectoryTests(ReflectoUnitTestCase):
         # this is allowed now + patch
         #self.assertFalse(self.reflecto.acceptableFilename(
         #    u"\uff35\uff4e\uff49\uff43\uff4f\uff44\uff45"))
+        self.assertTrue(self.reflecto.acceptableFilename('Compo\xcc\x81te.txt'))
 
 
 class MockIndexView:
