@@ -3,6 +3,8 @@
 *.pyo
 /.installed.cfg
 /bin
+/build
+/dist
 /develop-eggs
 /fake-eggs
 /parts
