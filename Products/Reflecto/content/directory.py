@@ -99,7 +99,7 @@ class ReflectoDirectoryBase:
 
     # IReadContainer implementation based on DictMixin
     def __getitem__(self, key):
-        if not self.has_key(key):            
+        if not self.has_key(key):
             raise KeyError(key)
         
         filename = os.path.join(self.getFilesystemPath(), key)
@@ -108,8 +108,9 @@ class ReflectoDirectoryBase:
         else:
             class_ = ReflectoFile
             
+        reflectorpath = self.getPathOfReflectoParent()
         path = self.getPathToReflectoParent() + (key,)
-        obj = class_(path).__of__(self)
+        obj = class_(path, reflectorpath).__of__(self)
 
         if self.getReflector().getLife():
             addMarkerInterface(obj, ILifeProxy)
@@ -591,8 +592,9 @@ class ReflectoNullResource(NullResource):
         if not self.acceptableFilename(name):
             raise BadRequestException, ('The id "%s" is invalid.' % name)
         
+        reflectopath = parent.getPathOfReflectoParent()
         path = parent.getPathToReflectoParent() + (name,)
-        obj = ReflectoFile(path).__of__(parent)
+        obj = ReflectoFile(path, reflectopath).__of__(parent)
 
         if self.getReflector().getLife():
             addMarkerInterface(obj, ILifeProxy)
