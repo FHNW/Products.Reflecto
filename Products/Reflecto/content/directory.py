@@ -30,9 +30,10 @@ from webdav.Collection import Collection
 from zope.event import notify
 from zope.interface import implements, Interface
 from zope.component import queryMultiAdapter
-from zope.app.container.contained import notifyContainerModified
-from zope.app.container.contained import ObjectMovedEvent, ObjectRemovedEvent
+
+from zope.container.contained import notifyContainerModified
 from zope.lifecycleevent import ObjectCopiedEvent
+from zope.lifecycleevent import ObjectMovedEvent, ObjectRemovedEvent
 
 from Products.CMFCore.DynamicType import DynamicType
 from Products.CMFCore.permissions import View, DeleteObjects
