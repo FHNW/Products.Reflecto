@@ -27,6 +27,5 @@ setup(name='Products.Reflecto',
       install_requires=[
           'setuptools',
           'zope.app.file',
-          'zope.app.container',
       ]
       )

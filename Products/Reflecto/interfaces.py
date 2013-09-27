@@ -1,5 +1,5 @@
 from zope.interface import Interface
-from zope.app.container.interfaces import IReadContainer
+from zope.container.interfaces import IReadContainer
 
 class IReflector(Interface):
     """Reflection of a filesystem folder."""
