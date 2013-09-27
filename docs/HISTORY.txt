@@ -4,7 +4,8 @@ Changelog
 3.0.5-FHNW1 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- Use zope.container instead of deprecated zope.app.container
+  [tomgross]
 
 
 2.5.1-FHNW1 (2012-11-15)
