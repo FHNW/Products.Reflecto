@@ -18,8 +18,8 @@ from OFS.SimpleItem import Item
 
 from zope.interface import implements
 from zope.event import notify
-from zope.app.container.contained import ObjectMovedEvent
-from zope.app.container.contained import notifyContainerModified
+from zope.container.contained import notifyContainerModified
+from zope.lifecycleevent import ObjectMovedEvent
 from zope.lifecycleevent import ObjectCopiedEvent
 from OFS.event import ObjectWillBeMovedEvent, ObjectClonedEvent
 from zExceptions import MethodNotAllowed

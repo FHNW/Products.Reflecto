@@ -18,7 +18,7 @@ from zope.component.testing import PlacelessSetup as CASetup
 from zope.component import provideAdapter
 from zope.lifecycleevent.interfaces import (
     IObjectMovedEvent, IObjectRemovedEvent, IObjectCopiedEvent)
-from zope.app.container.interfaces import IContainerModifiedEvent
+from zope.container.interfaces import IContainerModifiedEvent
 from zope.component.eventtesting import PlacelessSetup as ESetup
 from zope.component.eventtesting import getEvents
 from Products.Reflecto.tests.unitcase import ReflectoUnitTestCase
