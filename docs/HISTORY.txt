@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.5-FHNW1 (unreleased)
+3.0.5-FHNW1 (2013-12-02)
 ------------------------
 
 - Use zope.container instead of deprecated zope.app.container

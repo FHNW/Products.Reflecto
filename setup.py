@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '3.0.6dev'
+version = '3.0.5-FHNW1'
 
 setup(name='Products.Reflecto',
       version=version,
